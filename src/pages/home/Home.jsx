@@ -5,6 +5,7 @@ import Products from "../../components/products/Products";
 
 const Home = () => {
   const [data, setData] = useState(null)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
 
@@ -17,10 +18,16 @@ const Home = () => {
         setData(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        setError(err);
       })
       .finally(() => setLoading(false))
   }, []);
+
+  if(error) {
+    return <div className='text-center text-red-500'>
+      <p>Somthing went wrong :(</p>
+    </div>
+  }
 
   return (
     <div id="home">

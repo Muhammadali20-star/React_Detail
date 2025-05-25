@@ -5,6 +5,7 @@ import Post from '../../components/post/Post'
 
 const Posts = () => {
   const [data, setData] = useState(null)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(()=>{
@@ -15,12 +16,16 @@ const Posts = () => {
           setData(res.data)
         })
         .catch((err) => {
-          console.log(err);
+          setError(err);
         })
         .finally(() => setLoading(false))
     }, [])
     
-
+    if(error) {
+      return <div className='text-center text-red-500'>
+        <p>Somthing went wrong :(</p>
+      </div>
+    }
   return (
     <div>
     {loading && <Skeleton count={30}/>}
